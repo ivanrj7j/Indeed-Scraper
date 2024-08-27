@@ -42,7 +42,7 @@ FEEDS={
 ROBOTSTXT_OBEY = False
 # PROXY_POOL_ENABLED = True
 ## ScrapeOps API Key
-SCRAPEOPS_API_KEY = 'c51766b7-d88b-4240-a12a-f39e9aaf40b2' ## Get Free API KEY here: https://scrapeops.io/app/register/main
+SCRAPEOPS_API_KEY = '' ## Get Free API KEY here: https://scrapeops.io/app/register/main
 
 ## Enable ScrapeOps Proxy
 SCRAPEOPS_PROXY_ENABLED = True
