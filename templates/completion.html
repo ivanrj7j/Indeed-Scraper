@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Completed</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: lightgreen;
+            text-align: center;
+        }
+
+        h1 {
+            background-color: lightgreen;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 40px;
+        }
+
+        button {
+            background-color: lightgreen;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>
+        <a href="https://www.indeed.com/">Indeed Search</a>
+    </h1>
+
+    <h1>Task Completed!</h1>
+    <p>Your task has been completed, and CSV files have been created.</p>
+
+    <!-- Button to navigate to the front page for a new search -->
+    <button onclick="window.location.href='{{ url_for('index.html') }}'">Search Again</button>
+</body>
+</html>
