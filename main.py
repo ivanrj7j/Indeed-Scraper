@@ -40,24 +40,26 @@ def submit():
 
 def run_spider(keyword,location):
     print("Lalalaa", keyword, location)
-    keyword_list = [keyword]
-    location_list = [location]
+
     # to get the current date and time to give the file name
     c_t = (datetime.now().strftime("%Y_%B_%d_%H_%M_%S")).replace(":",'')
+
+    # Setting up fileNames
+    file_name = f"{keyword}_{location}_{c_t}.json"
+    file_path = os.path.join("outputs", file_name)
+
     #now we need to get the settings from the settings.py file
     settings = get_project_settings()
     settings.set("FEED_FORMAT", "json")
-    settings.set("FEED_URI", f"{keyword}_{location}_{c_t}.json")
-    # print("I am",k,l)
+    settings.set("FEED_URI", file_path)
+    
     # Run Scrapy spider with the latest input
     process = CrawlerProcess(settings)
     process.crawl(MySpider, keyword_list=keyword, location_list=location)
     process.start()
     process.join()
     
-    # Load JSON file into DataFrame
-    file_name = f"{keyword}_{location}_{c_t}.json"
-    file_path = os.path.join(os.getcwd(), file_name)
+    
 
     if os.path.exists(file_path):
         data_df = pd.read_json(file_path)
@@ -75,8 +77,8 @@ def run_spider(keyword,location):
         jobs_csv_name = f"Jobs_{keyword}_{location}_{ct1}.csv"
         company_csv_name = f"Company_{keyword}_{location}_{ct1}.csv"
         #now using the name fetched above we are creating the respective csv's
-        Jobs_df.to_csv(jobs_csv_name, index=False)
-        Company_df.to_csv(company_csv_name, index=False)
+        Jobs_df.to_csv(os.path.join("outputs", jobs_csv_name), index=False)
+        Company_df.to_csv(os.path.join("outputs", company_csv_name), index=False)
         
         return {"Jobs": Jobs_df, "Company": Company_df}
     else:

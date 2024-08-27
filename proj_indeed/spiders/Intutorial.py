@@ -10,16 +10,12 @@ class MySpider(scrapy.Spider):
 
     def __init__(self, keyword_list, location_list, *args, **kwargs):
         super().__init__(**kwargs)
-        print('bh', keyword_list, location_list)
-        k1 = []
-        l1 = []
-        k1.append(keyword_list)
-        l1.append(location_list)
-        #         print('jj',k1)
-        self.keyword_list = k1
-        self.location_list = l1
 
-    #         print('jj',self.keyword_list,self.location_list)
+        print('-----------Keyword List and Location List:', keyword_list, location_list, "-----------\n\n")
+
+        self.keyword_list = [keyword_list]
+        self.location_list = [location_list]
+
 
     # get_indeed _search_url function is used to get the search url with relevant data
 
@@ -44,7 +40,9 @@ class MySpider(scrapy.Spider):
         job_page_url = list(set(jobs.xpath(
             '//div[@class="css-dekpa e37uo190"]//a/@data-jk').getall()))  #(Returns  a list  of all  jobs available in a page)
         Posted_DT = jobs.xpath('//span[@data-testid="myJobsStateDate"]/text()').get()
+
         self.Posted_DT = Posted_DT
+        
         for jk in job_page_url:  #(looping to get into each job page)
             job_link = 'https://www.indeed.com/viewjob?&jk=' + jk
             yield response.follow(job_link, callback=self.parse_job_page)  #navigating to each individual page
