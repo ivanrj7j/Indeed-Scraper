@@ -1,3 +1,7 @@
+This is Indeed Web Srapper App to scrape Company and Jobs data from Indeed.com.
+
+Here Scrapy along with Flask is used
+
 1)Run the below commands in the shell from Indeed_Flask folder
 
 Python main.py
