@@ -4,21 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Indeed Search</title>
-    <hr>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .search-container {
+            background-color: #e9ecef;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 <body>
-    <h1 style="background-color:powderblue; text-align:center;">
-        <a href="https://www.indeed.com/">Indeed Search</a>
-    </h1>
-
-    <form action="{{ url_for('submit') }}" method="POST">
-        <label for="keyword">Job Keyword:</label>
-        <input type="text" id="keyword" name="keyword" required>
-
-        <label for="location">Job Location:</label>
-        <input type="text" id="location" name="location" required>
-
-        <button type="submit">Search</button>
-    </form>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="search-container">
+                    <h1 class="text-center mb-4" style="color: #0066c0;">
+                        <a href="https://www.indeed.com/" class="text-decoration-none">Indeed Search</a>
+                    </h1>
+                    <form action="/submit" method="POST" id="jobsearch">
+                        <div class="row g-3">
+                            <div class="col-md-5">
+                                <input type="text" class="form-control" name="keyword" id="keyword" placeholder="Job Keyword" value="Web Developer">
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control" name="location" id="location" placeholder="Job Location" value="Delhi">
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-primary w-100">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
