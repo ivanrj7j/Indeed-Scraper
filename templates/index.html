@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,14 +10,24 @@
         body {
             background-color: #f8f9fa;
         }
+
         .search-container {
             background-color: #e9ecef;
             border-radius: 15px;
             padding: 30px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+
+        .download{
+            margin: 10px;
+        }
+
+        .invisible{
+            display: none;
+        }
     </style>
 </head>
+
 <body>
     <div class="container mt-5">
         <div class="row justify-content-center">
@@ -25,23 +36,72 @@
                     <h1 class="text-center mb-4" style="color: #0066c0;">
                         <a href="https://www.indeed.com/" class="text-decoration-none">Indeed Search</a>
                     </h1>
-                    <form action="/submit" method="POST" id="jobsearch">
+                    <div class="form">
                         <div class="row g-3">
                             <div class="col-md-5">
-                                <input type="text" class="form-control" name="keyword" id="keyword" placeholder="Job Keyword" value="Web Developer">
+                                <input class="keyword" type="text" class="form-control" name="keyword" id="keyword"
+                                    placeholder="Job Keyword" value="Web Developer">
                             </div>
                             <div class="col-md-5">
-                                <input type="text" class="form-control" name="location" id="location" placeholder="Job Location" value="Delhi">
+                                <input class="location" type="text" class="form-control" name="location" id="location"
+                                    placeholder="Job Location" value="Delhi">
                             </div>
                             <div class="col-md-2">
-                                <button type="submit" class="btn btn-primary w-100">Search</button>
+                                <button class="btn btn-primary w-100 submit">Search</button>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <center>
+            <a name="" id="" class="btn btn-outline-primary download invisible" href="" role="button" download="scraped data.json">Download</a>
+        </center>
+
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const form = document.querySelector('.form');
+        const keywordInput = form.querySelector(".keyword");
+        const locationInput = form.querySelector(".location");
+        const submitButton = form.querySelector(".submit");
+        const downloadButton = document.querySelector(".download");
+
+        const getKeywordAndLocation = () => {
+            const keyword = keywordInput.value;
+            const location = locationInput.value;
+            return { keyword: keyword, location: location };
+        }
+
+        const sendRequest = async (data) => {
+            const response = await fetch("/submit", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+
+            return await response.json();
+        }
+
+        const onSubmit = async () => {
+            submitButton.innerText = "Loading...";
+            const data = getKeywordAndLocation();
+            const response = await sendRequest(data);
+
+            const downloadData = new Blob([JSON.stringify(response)], { type: "application/json" });
+            const url = URL.createObjectURL(downloadData);
+
+            downloadButton.href = url;
+            downloadButton.classList.remove("invisible");
+
+            submitButton.innerHTML = "Search";
+        }
+
+        submitButton.addEventListener("click", onSubmit);
+    </script>
 </body>
+
 </html>
